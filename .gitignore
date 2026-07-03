@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments
+.env
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+
+# Experiment artifacts
+results/.cache/
+
+# Keep lightweight result summaries in git.
+!results/plots/
+!results/plots/*.png
+!results/tables/
+!results/tables/**/*.csv
+
+# Large binary artifacts are kept locally by default.
+# Use Git LFS or GitHub Releases if these need to be published.
+results/logs/*
+results/videos/*
+!results/logs/.gitkeep
+!results/plots/.gitkeep
+!results/tables/.gitkeep
+!results/videos/.gitkeep

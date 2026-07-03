@@ -1,0 +1,44 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug random rollout",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/01_mujoco_basics/random_rollout_ant.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--episodes",
+        "1",
+        "--max-steps",
+        "200"
+      ]
+    },
+    {
+      "name": "Debug random rollout video",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/01_mujoco_basics/record_random_video.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--output",
+        "results/videos/random_ant.mp4"
+      ]
+    },
+    {
+      "name": "Debug train Ant PPO smoke",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/05_rl_baselines/train_ant_ppo.py",
+      "console": "integratedTerminal",
+      "args": [
+        "--total-timesteps",
+        "5000",
+        "--n-steps",
+        "512",
+        "--output",
+        "results/logs/ant_ppo_smoke"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+gymnasium[mujoco]
+mujoco
+stable-baselines3
+torch
+numpy
+matplotlib
+imageio
+imageio-ffmpeg
+pyyaml
+tqdm
+pandas

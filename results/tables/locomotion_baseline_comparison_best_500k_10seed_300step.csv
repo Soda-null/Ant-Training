@@ -1,0 +1,6 @@
+policy,episodes,mean_return,mean_length,success_rate,mean_x_displacement,mean_abs_y_displacement,mean_forward_score
+shaped_residual_ppo,10,643.718917,300.00,1.0000,17.981897,1.984600,17.584977
+residual_ppo,10,390.596098,300.00,1.0000,5.433811,4.589194,4.515972
+handcrafted_gait,10,348.790205,300.00,1.0000,3.189317,3.702871,2.448743
+vanilla_ppo,10,281.035178,300.00,1.0000,0.014984,0.085152,-0.002047
+random,10,-32.752183,97.50,0.1000,-0.002182,1.096758,-0.221534

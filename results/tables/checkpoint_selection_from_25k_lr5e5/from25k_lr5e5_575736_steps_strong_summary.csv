@@ -1,0 +1,3 @@
+condition,episodes,mean_return,mean_length,success_rate,mean_x_displacement,mean_abs_y_displacement,mean_forward_score
+nominal,5,2003.202397,898.00,0.8000,57.606784,1.982380,57.210308
+randomized,5,2195.263586,1000.00,1.0000,62.380585,4.111399,61.558305

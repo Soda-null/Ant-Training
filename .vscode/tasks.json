@@ -1,0 +1,208 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install Python 3.11 with Homebrew",
+      "type": "shell",
+      "command": "brew install python@3.11",
+      "problemMatcher": []
+    },
+    {
+      "label": "Create local venv",
+      "type": "shell",
+      "command": "python3.11 -m venv .venv",
+      "problemMatcher": []
+    },
+    {
+      "label": "Install dependencies in venv",
+      "type": "shell",
+      "command": ".venv/bin/python -m pip install -r requirements.txt",
+      "problemMatcher": []
+    },
+    {
+      "label": "Random rollout smoke test",
+      "type": "shell",
+      "command": ".venv/bin/python 01_mujoco_basics/random_rollout_ant.py --episodes 1 --max-steps 200",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Inspect Ant state",
+      "type": "shell",
+      "command": ".venv/bin/python 01_mujoco_basics/inspect_mujoco_state.py",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Record random Ant video",
+      "type": "shell",
+      "command": ".venv/bin/python 01_mujoco_basics/record_random_video.py --output results/videos/random_ant.mp4",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "2-link FK demo",
+      "type": "shell",
+      "command": ".venv/bin/python 02_kinematics/two_link_fk.py --theta1 30 --theta2 45",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "2-link IK demo",
+      "type": "shell",
+      "command": ".venv/bin/python 02_kinematics/two_link_ik.py --x 1 --y 1",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "2-link Jacobian demo",
+      "type": "shell",
+      "command": ".venv/bin/python 02_kinematics/jacobian_demo.py --theta1 30 --theta2 45 --theta1-dot 0.5 --theta2-dot 0.2",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "2-link arm plot",
+      "type": "shell",
+      "command": ".venv/bin/python 02_kinematics/visualize_two_link_arm.py --theta1 30 --theta2 45 --target-x 1 --target-y 1",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "PD joint control demo",
+      "type": "shell",
+      "command": ".venv/bin/python 03_control/pd_joint_control.py --target 60 --kp 25 --kd 6",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Compare PD gains",
+      "type": "shell",
+      "command": ".venv/bin/python 03_control/compare_pd_gains.py",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Trajectory tracking demo",
+      "type": "shell",
+      "command": ".venv/bin/python 03_control/trajectory_tracking.py --amplitude 30 --frequency 0.25 --kp 25 --kd 6",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Sinusoidal gait controller",
+      "type": "shell",
+      "command": ".venv/bin/python 04_gait_controller/sinusoidal_gait_controller.py",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Record handcrafted Ant gait",
+      "type": "shell",
+      "command": ".venv/bin/python 04_gait_controller/record_gait_video.py --steps 300",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Sweep handcrafted gait params",
+      "type": "shell",
+      "command": ".venv/bin/python 04_gait_controller/sweep_gait_params.py --trials-per-config 3",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Train Ant PPO smoke",
+      "type": "shell",
+      "command": ".venv/bin/python 05_rl_baselines/train_ant_ppo.py --total-timesteps 5000 --n-steps 512 --output results/logs/ant_ppo_smoke",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Evaluate Ant PPO smoke",
+      "type": "shell",
+      "command": ".venv/bin/python 05_rl_baselines/evaluate_policy.py --model results/logs/ant_ppo_smoke.zip --episodes 3 --deterministic",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Record Ant PPO policy video",
+      "type": "shell",
+      "command": ".venv/bin/python 05_rl_baselines/record_policy_video.py --model results/logs/ant_ppo_smoke.zip --steps 300 --deterministic",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Train residual Ant PPO smoke",
+      "type": "shell",
+      "command": ".venv/bin/python 05_rl_baselines/train_residual_ppo.py --total-timesteps 5000 --n-steps 512 --residual-scale 0.05 --output results/logs/ant_residual_ppo_smoke",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Evaluate residual Ant PPO smoke",
+      "type": "shell",
+      "command": ".venv/bin/python 05_rl_baselines/evaluate_residual_policy.py --model results/logs/ant_residual_ppo_smoke.zip --episodes 3 --residual-scale 0.05 --deterministic",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Record residual Ant PPO policy video",
+      "type": "shell",
+      "command": ".venv/bin/python 05_rl_baselines/record_residual_policy_video.py --model results/logs/ant_residual_ppo_smoke.zip --steps 300 --residual-scale 0.05 --deterministic",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Compare locomotion baselines",
+      "type": "shell",
+      "command": ".venv/bin/python 05_rl_baselines/compare_locomotion_baselines.py --episodes 3 --max-steps 300 --deterministic",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Train shaped residual PPO smoke",
+      "type": "shell",
+      "command": ".venv/bin/python 06_reward_shaping/train_shaped_residual_ppo.py --total-timesteps 5000 --n-steps 512 --forward-weight 1.0 --lateral-weight 0.5 --energy-weight 0.01",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Sweep reward weights",
+      "type": "shell",
+      "command": ".venv/bin/python 06_reward_shaping/sweep_reward_weights.py --total-timesteps 4096",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Plot locomotion comparison",
+      "type": "shell",
+      "command": ".venv/bin/python 06_reward_shaping/plot_locomotion_comparison.py",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Evaluate domain randomization",
+      "type": "shell",
+      "command": ".venv/bin/python 07_domain_randomization/evaluate_domain_randomization.py --episodes 10 --max-steps 1000",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Evaluate push recovery",
+      "type": "shell",
+      "command": ".venv/bin/python 08_push_recovery/evaluate_push_recovery.py --episodes 5 --max-steps 1000",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "Compile Python",
+      "type": "shell",
+      "command": "PYTHONPYCACHEPREFIX=/tmp/codex_pycache python3 -m py_compile 01_mujoco_basics/random_rollout_ant.py 01_mujoco_basics/inspect_mujoco_state.py 01_mujoco_basics/record_random_video.py 02_kinematics/two_link_fk.py 02_kinematics/two_link_ik.py 02_kinematics/jacobian_demo.py 02_kinematics/visualize_two_link_arm.py 03_control/pd_joint_control.py 03_control/compare_pd_gains.py 03_control/trajectory_tracking.py 04_gait_controller/sinusoidal_gait_controller.py 04_gait_controller/record_gait_video.py 04_gait_controller/sweep_gait_params.py 05_rl_baselines/train_ant_ppo.py 05_rl_baselines/evaluate_policy.py 05_rl_baselines/record_policy_video.py 05_rl_baselines/residual_gait_wrapper.py 05_rl_baselines/train_residual_ppo.py 05_rl_baselines/evaluate_residual_policy.py 05_rl_baselines/record_residual_policy_video.py 05_rl_baselines/compare_locomotion_baselines.py 06_reward_shaping/locomotion_reward_wrapper.py 06_reward_shaping/train_shaped_residual_ppo.py 06_reward_shaping/sweep_reward_weights.py 06_reward_shaping/plot_locomotion_comparison.py 07_domain_randomization/evaluate_domain_randomization.py 08_push_recovery/evaluate_push_recovery.py",
+      "group": "test",
+      "problemMatcher": []
+    }
+  ]
+}
