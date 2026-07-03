@@ -1,4 +1,4 @@
-# Ant-Training
+# Ant-residual-rl-lab
 
 ## A MuJoCo Mini-Lab for Studying Gait Priors, Residual PPO, and Robustness in Ant Locomotion
 
