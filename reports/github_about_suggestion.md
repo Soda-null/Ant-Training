@@ -1,10 +1,10 @@
 # GitHub About Suggestion
 
-Suggested GitHub description:
+## Description
 
 MuJoCo Ant-v4 mini-lab for gait priors, residual PPO, reward shaping, and robustness evaluation.
 
-Suggested topics:
+## Topics
 
 - mujoco
 - reinforcement-learning
@@ -16,4 +16,4 @@ Suggested topics:
 - robotics
 - python
 
-These settings need to be added manually on the GitHub repository page under the About section.
+These need to be added manually from the GitHub repository page under the About section.

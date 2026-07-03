@@ -103,9 +103,13 @@ Performance policy:
 
 <video src="assets/performance_demo.mp4" controls width="720"></video>
 
+[Open performance demo](assets/performance_demo.mp4)
+
 Robustness policy:
 
 <video src="assets/robustness_demo.mp4" controls width="720"></video>
+
+[Open robustness demo](assets/robustness_demo.mp4)
 
 Full local videos:
 
