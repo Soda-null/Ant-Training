@@ -21,6 +21,9 @@ results/.cache/
 !results/plots/*.png
 !results/tables/
 !results/tables/**/*.csv
+!assets/
+!assets/*.gif
+!assets/*.mp4
 
 # Large binary artifacts are kept locally by default.
 # Use Git LFS or GitHub Releases if these need to be published.

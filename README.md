@@ -1,42 +1,22 @@
-# A MuJoCo Mini-Lab for Studying Gait Priors, Residual PPO, and Robustness in Ant Locomotion
+# ant-training
 
-This repository is a small robot learning mini-lab built around MuJoCo `Ant-v4`.
-It studies how a handcrafted gait prior, residual PPO, reward shaping, domain
-randomization, and push-recovery stress tests interact in quadruped locomotion.
+## A MuJoCo Mini-Lab for Studying Gait Priors, Residual PPO, and Robustness in Ant Locomotion
+
+This repository contains a MuJoCo `Ant-v4` robot learning mini-lab for studying
+how handcrafted gait priors, residual PPO, reward shaping, and
+domain-randomized continuation affect locomotion performance and robustness.
 
 The project is intentionally compact: it is not a full robotics stack, and
 `Ant-v4` is a benchmark morphology rather than a real robot. The goal is to
 build a clear, reproducible learning pipeline and document both successful and
 negative results.
 
-## Overview
+## Highlights
 
-The main technical path is:
-
-```text
-MuJoCo Ant-v4
--> kinematics and PD control
--> handcrafted sinusoidal gait
--> residual PPO
--> shaped residual PPO
--> domain randomization
--> push recovery stress test
-```
-
-The strongest nominal locomotion policy is:
-
-```text
-results/logs/ant_shaped_residual_ppo_best_500k.zip
-```
-
-The strongest strong-domain-randomization candidate is:
-
-```text
-results/logs/dr_checkpoint_selection_from_25k_lr5e5/from25k_lr5e5_575736_steps.zip
-```
-
-Push-aware training attempts are kept as negative results. No push-aware model
-currently outperforms the original 500k policy.
+- Built a staged robot learning mini-lab from MuJoCo basics to residual PPO and robustness evaluation.
+- Improved 1000-step forward displacement from `6.6` with a handcrafted gait baseline to `60.3` with shaped residual PPO across 20 evaluation seeds.
+- Evaluated a performance-vs-robustness tradeoff under nominal, moderate, and strong domain randomization.
+- Found that push recovery is a separate failure mode: surviving a backward push does not imply recovering forward locomotion.
 
 ## Key Idea
 
@@ -70,7 +50,7 @@ flowchart LR
 Locomotion baseline comparison, `Ant-v4`, 20 seeds, 1000 max steps:
 
 | Policy | Success | Mean x | Mean abs y | Forward score |
-| --- | ---: | ---: | ---: | ---: |
+|---|---:|---:|---:|---:|
 | shaped residual PPO 500k | 0.90 | 60.34 | 2.30 | 59.88 |
 | handcrafted gait | 1.00 | 6.59 | 9.23 | 4.74 |
 | vanilla PPO | 1.00 | 0.01 | 0.15 | -0.02 |
@@ -80,12 +60,12 @@ Locomotion baseline comparison, `Ant-v4`, 20 seeds, 1000 max steps:
 The shaped residual policy improved 1000-step forward displacement from `6.6`
 for the handcrafted gait baseline to `60.3` across 20 evaluation seeds.
 
-## Performance vs Robustness Tradeoff
+## Performance vs Robustness Benchmark
 
 Formal benchmark, 20 seeds, 1000 max steps:
 
 | Policy | Condition | Success | Mean x | Mean abs y | Forward score |
-| --- | --- | ---: | ---: | ---: | ---: |
+|---|---|---:|---:|---:|---:|
 | Performance | nominal | 0.90 | 60.34 | 2.30 | 59.88 |
 | Performance | moderate | 0.85 | 56.15 | 2.48 | 55.65 |
 | Performance | strong | 0.65 | 44.24 | 2.95 | 43.65 |
@@ -104,7 +84,7 @@ between nominal locomotion performance and robustness.
 Representative push-recovery results for the performance policy:
 
 | Condition | Success | Recovery | Forward score |
-| --- | ---: | ---: | ---: |
+|---|---:|---:|---:|
 | no push | 0.80 | 0.80 | 56.24 |
 | +x 10N | 1.00 | 1.00 | 60.33 |
 | -x 10N | 0.90 | 0.00 | 16.11 |
@@ -117,14 +97,22 @@ Key observations:
 - Domain robustness does not automatically transfer to push recovery.
 - Push-aware training attempts did not outperform the original 500k policy.
 
-## Videos
+## Demo Videos
 
-Benchmark videos are stored locally:
+Performance policy:
+
+<video src="assets/performance_demo.mp4" controls width="720"></video>
+
+Robustness policy:
+
+<video src="assets/robustness_demo.mp4" controls width="720"></video>
+
+Full local videos:
 
 - `results/videos/formal_benchmark_performance_best_1000step.mp4`
 - `results/videos/formal_benchmark_robustness_best_1000step.mp4`
 
-Additional videos include:
+Additional local videos:
 
 - `results/videos/ant_shaped_residual_ppo_best_500k.mp4`
 - `results/videos/sinusoidal_gait_ant_best.mp4`
@@ -134,20 +122,23 @@ Additional videos include:
 
 ```text
 .
-├── 01_mujoco_basics/          # Random rollout, state inspection, video recording
+├── 01_mujoco_basics/          # MuJoCo rollout, state inspection, video recording
 ├── 02_kinematics/             # 2-link FK, IK, Jacobian, visualization
-├── 03_control/                # PD control, gain comparison, trajectory tracking
+├── 03_control/                # PD control and trajectory tracking
 ├── 04_gait_controller/        # Handcrafted sinusoidal Ant gait
-├── 05_rl_baselines/           # Vanilla PPO, residual PPO, evaluation, videos
-├── 06_reward_shaping/         # Shaped residual PPO and reward-weight sweep
-├── 07_domain_randomization/   # Robustness evaluation/training/checkpoint selection
+├── 05_rl_baselines/           # Vanilla PPO and residual PPO baselines
+├── 06_reward_shaping/         # Shaped residual PPO and reward-weight sweeps
+├── 07_domain_randomization/   # Robustness evaluation and DR continuation training
 ├── 08_push_recovery/          # Push recovery evaluation and training attempts
-├── reports/                   # Technical reports and plotting scripts
-└── results/
-    ├── logs/                  # Saved PPO models and checkpoints
-    ├── plots/                 # Figures
-    ├── tables/                # CSV evaluation tables
-    └── videos/                # MP4 rollouts
+├── common/                    # Shared wrappers, utilities, evaluation helpers
+├── configs/                   # Config files
+├── reports/                   # Technical reports and result summaries
+├── results/
+│   ├── plots/                 # Figures used in reports and README
+│   ├── tables/                # Evaluation CSV files
+│   └── videos/                # Local MP4 rollouts, ignored by git by default
+├── assets/                    # GitHub-friendly demo GIFs / compressed videos
+└── requirements.txt
 ```
 
 ## Setup
@@ -252,6 +243,12 @@ python 05_rl_baselines/record_residual_policy_video.py \
 On macOS, video rendering may require running from a normal Terminal or VS Code
 terminal so MuJoCo can access the graphics stack.
 
+## Reports
+
+- [Technical Report](reports/technical_report.md)
+- [Results Index](reports/results_index.md)
+- [Reproducibility Commands](reports/reproduce_commands.md)
+
 ## Key Takeaways
 
 - Reward shaping is essential for turning survival into directed locomotion.
@@ -270,11 +267,3 @@ terminal so MuJoCo can access the graphics stack.
 - Future work: shaped PPO without gait-prior ablation, checkpoint learning
   curves, mean/std or confidence intervals, realistic quadruped XML, actuator
   delay, sensor noise, terrain variation, and a ROS2 interface.
-
-## Reports
-
-- `reports/technical_report.md`
-- `reports/results_index.md`
-- `reports/technical_report_robot_learning_minilab.md`
-- `reports/stage_04_formal_policy_benchmark.md`
-- `reports/stage_05_push_aware_training_report.md`

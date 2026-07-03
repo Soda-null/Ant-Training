@@ -1,5 +1,9 @@
 # Assets
 
-This folder is reserved for MuJoCo XML models, images, or other static assets
-used later in the project.
+This folder stores GitHub-friendly presentation assets for the project.
 
+- `performance_demo.mp4`: shaped residual PPO 500k policy rollout.
+- `robustness_demo.mp4`: selected domain-randomized robustness policy rollout.
+
+Large raw rollouts stay under `results/videos/` and are ignored by git by
+default.
